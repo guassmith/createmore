@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "createmore:block/electric_motor/block",
+      "x": 270, "y": 270
+    },
+    "facing=up": {
+      "model": "createmore:block/electric_motor/block",
+      "x": 90, "y": 270
+    },
+    "facing=north": {
+      "model": "createmore:block/electric_motor/block",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "createmore:block/electric_motor/block",
+      "y": 0
+    },
+    "facing=west": {
+      "model": "createmore:block/electric_motor/block",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "createmore:block/electric_motor/block",
+      "y": 270
+    }
+  }
+}
