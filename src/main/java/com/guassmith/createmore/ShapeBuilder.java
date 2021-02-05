@@ -1,18 +1,12 @@
 package com.guassmith.createmore;
 
-import static net.minecraft.util.Direction.NORTH;
-import static net.minecraft.util.Direction.SOUTH;
 import static net.minecraft.util.Direction.UP;
 
 import java.util.function.BiFunction;
 
-import com.simibubi.create.content.logistics.block.chute.ChuteShapes;
 import com.simibubi.create.foundation.utility.VoxelShaper;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DirectionalBlock;
-import net.minecraft.block.PistonHeadBlock;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.math.shapes.IBooleanFunction;

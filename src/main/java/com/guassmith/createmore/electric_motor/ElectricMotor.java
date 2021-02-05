@@ -21,9 +21,9 @@ import net.minecraftforge.common.ToolType;
 public class ElectricMotor extends DirectionalKineticBlock{
 
     public static final VoxelShaper SHAPE = ShapeBuilder
-            .shape(0, 2, 0, 16, 13, 16)
-            .add(4, 0, 4, 12, 2, 12)
-            .add(5, 13, 5, 11, 14, 11).forDirectional();
+        .shape(0, 2, 0, 16, 13, 16)
+        .add(4, 0, 4, 12, 2, 12)
+        .add(5, 13, 5, 11, 14, 11).forDirectional();
 
     public ElectricMotor(Properties properties) {
         super(properties);
@@ -62,9 +62,9 @@ public class ElectricMotor extends DirectionalKineticBlock{
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         Direction preferred = getPreferredFacing(context);
-        if ((context.getPlayer() != null && context.getPlayer()
-                .isSneaking()) || preferred == null)
+        if ((context.getPlayer() != null && context.getPlayer().isSneaking()) || preferred == null) {
             return super.getStateForPlacement(context);
+        }
         return getDefaultState().with(FACING, preferred);
     }
 

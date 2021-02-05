@@ -24,7 +24,8 @@ import java.util.List;
 public class ElectricMotorTile extends GeneratingKineticTileEntity {
 
     private final LazyOptional<IEnergyStorage> energy = LazyOptional.of(
-            () -> new NewEnergyStorage(Config.ELECTRIC_MOTOR.energyCapacity.get()));
+        () -> new NewEnergyStorage(Config.ELECTRIC_MOTOR.energyCapacity.get())
+    );
     private boolean powered = false;
     protected ScrollValueBehaviour generatedSpeed;
 
@@ -37,15 +38,14 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
         Integer max = Config.ELECTRIC_MOTOR.maxSpeed.get();
         Integer min = Config.ELECTRIC_MOTOR.minSpeed.get();
         CenteredSideValueBoxTransform slot = new CenteredSideValueBoxTransform((motor, side) ->
-                motor.get(ElectricMotor.FACING) == side.getOpposite());
-        this.generatedSpeed = new ScrollValueBehaviour(Lang.translate("generic.speed", new Object[0]), this, slot);
+            motor.get(ElectricMotor.FACING) == side.getOpposite()
+        );
+        this.generatedSpeed = new ScrollValueBehaviour(Lang.translate("generic.speed"), this, slot);
         this.generatedSpeed.between(min, max);
         this.generatedSpeed.value = Config.ELECTRIC_MOTOR.defaultSpeed.get();
         this.generatedSpeed.scrollableValue = Config.ELECTRIC_MOTOR.defaultSpeed.get();
-        this.generatedSpeed.withUnit((i) -> Lang.translate("generic.unit.rpm", new Object[0]));
-        this.generatedSpeed.withCallback((i) -> {
-            this.updateGeneratedRotation();
-        });
+        this.generatedSpeed.withUnit(i -> Lang.translate("generic.unit.rpm"));
+        this.generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
         this.generatedSpeed.withStepFunction(CreativeMotorTileEntity::step);
         behaviours.add(this.generatedSpeed);
     }
@@ -53,27 +53,20 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityEnergy.ENERGY) {
-            return energy.cast();
-        }
-        return super.getCapability(cap, side);
+        return (cap == CapabilityEnergy.ENERGY) ? energy.cast() : super.getCapability(cap, side);
     }
 
     @Override
     public void write(CompoundNBT compound, boolean clientPacket) {
         compound.putBoolean("powered", powered);
-        energy.ifPresent(energy -> {
-            compound.putInt("energyAmount", energy.getEnergyStored());
-        });
+        energy.ifPresent(energy -> compound.putInt("energyAmount", energy.getEnergyStored()));
         super.write(compound, clientPacket);
     }
 
     @Override
     protected void fromTag(BlockState state, CompoundNBT compound, boolean clientPacket) {
         powered = compound.getBoolean("powered");
-        energy.ifPresent(energy -> {
-            ((NewEnergyStorage)energy).setEnergy(compound.getInt("energyAmount"));
-        });
+        energy.ifPresent(energy -> ((NewEnergyStorage)energy).setEnergy(compound.getInt("energyAmount")));
         super.fromTag(state, compound, clientPacket);
     }
 
