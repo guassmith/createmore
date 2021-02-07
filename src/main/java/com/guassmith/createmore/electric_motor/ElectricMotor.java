@@ -40,11 +40,6 @@ public class ElectricMotor extends DirectionalKineticBlock{
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(BlockStateProperties.FACING, BlockStateProperties.POWERED);
-    }
-
-    @Override
     public boolean hasShaftTowards(IWorldReader world, BlockPos pos, BlockState state, Direction face) {
         return face == state.get(FACING);
     }
@@ -57,15 +52,6 @@ public class ElectricMotor extends DirectionalKineticBlock{
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return ModTiles.ELECTRIC_MOTOR_TILE.create();
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        Direction preferred = getPreferredFacing(context);
-        if ((context.getPlayer() != null && context.getPlayer().isSneaking()) || preferred == null) {
-            return super.getStateForPlacement(context);
-        }
-        return getDefaultState().with(FACING, preferred);
     }
 
     @Override

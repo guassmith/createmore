@@ -43,7 +43,7 @@ public class ShapeBuilder {
             return add(cuboid(x1, y1, z1, x2, y2, z2));
         }
 
-        Builder erase(double x1, double y1, double z1, double x2, double y2, double z2) {
+        public Builder erase(double x1, double y1, double z1, double x2, double y2, double z2) {
             this.shape =
                     VoxelShapes.combineAndSimplify(shape, cuboid(x1, y1, z1, x2, y2, z2), IBooleanFunction.ONLY_FIRST);
             return this;
@@ -65,7 +65,7 @@ public class ShapeBuilder {
             return build(VoxelShaper::forDirectional, direction);
         }
 
-        VoxelShaper forAxis() {
+        public VoxelShaper forAxis() {
             return build(VoxelShaper::forAxis, Axis.Y);
         }
 
