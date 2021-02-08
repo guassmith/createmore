@@ -41,8 +41,8 @@ public class CreateMore
         );
 
         AllConfigs.SERVER.kinetics.stressValues.getImpacts().put(
-                ModBlocks.DYNAMO.get().getRegistryName(),
-                Config.DYNAMO.stressImpact
+            ModBlocks.DYNAMO.get().getRegistryName(),
+            Config.DYNAMO.stressImpact
         );
     }
 

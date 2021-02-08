@@ -28,19 +28,19 @@ public class Config {
             stressCapacity = BUILDER
                 .comment("Stress capacity of the electric motor (this is multiplied by the rpm)")
                 .define("electric_motor_stressCapacity", 1024.d);
-            energyCapacity = builder
+            energyCapacity = BUILDER
                 .comment("Sets the Reach of the Torcher [0..50|default:20]")
                 .define("electric_motor_energyCapacity", 10000);
-            energyUsage = builder
+            energyUsage = BUILDER
                 .comment("How much energy the electric motor uses per tick (multiplied by rpm)")
                 .define("electric_motor_energyUsage", 10);
-            defaultSpeed = builder
+            defaultSpeed = BUILDER
                 .comment("The speed of an electric motor when it's first placed down")
                 .define("electric_motor_defaultSpeed",  16);
-            minSpeed = builder
+            minSpeed = BUILDER
                 .comment("The minimum rotation speed of an electric motor")
                 .define("electric_motor_minSpeed", -256);
-            maxSpeed = builder
+            maxSpeed = BUILDER
                 .comment("The maximum rotation speed of an electric motor")
                 .defineInRange("Maximum Speed", 256, Integer.MIN_VALUE, Integer.MAX_VALUE);
             defaultSpeed = BUILDER

@@ -50,10 +50,7 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if(cap == CapabilityEnergy.ENERGY) {
-            return energy.getOptional().cast();
-        }
-        return super.getCapability(cap, side);
+        return cap == CapabilityEnergy.ENERGY ? energy.getOptional().cast() : super.getCapability(cap, side);
     }
 
     @Override
