@@ -1,6 +1,5 @@
 package com.guassmith.createmore;
 
-import com.simibubi.create.foundation.config.AllConfigs;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.repack.registrate.util.NonNullLazyValue;
 import net.minecraft.util.Direction;
@@ -10,14 +9,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Mod(CreateMore.MODID)
 public class CreateMore
 {
     public static final String MODID = "createmore";
-    private static final Logger LOGGER = LogManager.getLogger();
+    //private static final Logger LOGGER = LogManager.getLogger();
 
 
     private static final NonNullLazyValue<CreateRegistrate> registrate = CreateRegistrate.lazy(MODID);
@@ -34,16 +31,7 @@ public class CreateMore
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-
-        AllConfigs.SERVER.kinetics.stressValues.getCapacities().put(
-            ModBlocks.ELECTRIC_MOTOR.get().getRegistryName(),
-            Config.ELECTRIC_MOTOR.stressCapacity
-        );
-
-        AllConfigs.SERVER.kinetics.stressValues.getImpacts().put(
-                ModBlocks.DYNAMO.get().getRegistryName(),
-                Config.DYNAMO.stressImpact
-        );
+        ModBlocks.registerStress();
     }
 
     public static CreateRegistrate registrate() {

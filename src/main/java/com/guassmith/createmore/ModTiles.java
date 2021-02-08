@@ -4,6 +4,7 @@ import com.guassmith.createmore.dynamo.DynamoRenderer;
 import com.guassmith.createmore.dynamo.DynamoTile;
 import com.guassmith.createmore.electric_motor.ElectricMotorRenderer;
 import com.guassmith.createmore.electric_motor.ElectricMotorTile;
+import com.guassmith.createmore.smart_motor.SmartMotorTile;
 import com.simibubi.create.repack.registrate.util.entry.TileEntityEntry;
 
 public class ModTiles {
@@ -18,6 +19,12 @@ public class ModTiles {
         .tileEntity("dynamo", DynamoTile::new)
         .validBlocks(ModBlocks.DYNAMO)
         .renderer(() -> DynamoRenderer::new)
+        .register();
+
+    public static final TileEntityEntry<SmartMotorTile> SMART_MOTOR_TILE = CreateMore.registrate()
+        .tileEntity("smart_motor", SmartMotorTile::new)
+        .validBlocks(ModBlocks.SMART_MOTOR)
+        .renderer(() -> ElectricMotorRenderer::new)
         .register();
 
     public static void register() {}

@@ -4,11 +4,8 @@ import com.guassmith.createmore.ShapeBuilder;
 import com.guassmith.createmore.ModTiles;
 import com.simibubi.create.content.contraptions.base.*;
 import com.simibubi.create.foundation.utility.VoxelShaper;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -18,7 +15,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.common.ToolType;
 
-public class ElectricMotor extends DirectionalKineticBlock{
+public class ElectricMotor extends DirectionalKineticBlock {
 
     public static final VoxelShaper SHAPE = ShapeBuilder
         .shape(0, 2, 0, 16, 13, 16)
@@ -29,6 +26,9 @@ public class ElectricMotor extends DirectionalKineticBlock{
         super(properties);
     }
 
+
+
+    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPE.get(state.get(FACING));
@@ -42,6 +42,17 @@ public class ElectricMotor extends DirectionalKineticBlock{
     @Override
     public boolean hasShaftTowards(IWorldReader world, BlockPos pos, BlockState state, Direction face) {
         return face == state.get(FACING);
+    }
+
+
+
+    @Override
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        Direction preferred = getPreferredFacing(context);
+        if ((context.getPlayer() != null && context.getPlayer().isSneaking()) || preferred == null) {
+            return super.getStateForPlacement(context);
+        }
+        return getDefaultState().with(FACING, preferred);
     }
 
     @Override

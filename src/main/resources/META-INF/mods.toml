@@ -33,3 +33,10 @@ A mod to add some extra features to Create, as well as intergrate it with other 
     versionRange="[mc1.16.3_v0.3e,)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.examplemod]]
+    modId="computercraft"
+    mandatory=false
+    versionRange="[1.95.2)"
+    ordering="NONE"
+    side="BOTH"

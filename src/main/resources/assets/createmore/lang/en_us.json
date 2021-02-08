@@ -1,4 +1,5 @@
 {
   "block.createmore.electric_motor": "Electric Motor",
-  "block.createmore.dynamo": "Dynamo"
+  "block.createmore.dynamo": "Dynamo",
+  "block.createmore.smart_motor": "Smart Motor"
 }

@@ -6,6 +6,8 @@
 		"1": "createmore:block/electric_motor/face",
 		"2": "createmore:block/electric_motor/back",
 		"3": "createmore:block/electric_motor/front",
+		"4": "create:block/axis",
+		"5": "create:block/axis_top",
 		"particle": "createmore:block/electric_motor/side"
 	},
 	"elements": [
@@ -48,6 +50,20 @@
 				"west": {"uv": [12, 5, 11, 11], "texture": "#3"},
 				"up": {"uv": [11, 5, 5, 4], "texture": "#3"},
 				"down": {"uv": [5, 12, 11, 11], "texture": "#3"}
+			}
+		},
+		{
+			"name": "Axis",
+			"from": [6, 6, 6],
+			"to": [10, 10, 16],
+			"shade": false,
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8, 8, 8]},
+			"faces": {
+				"east": {"uv": [6, 0, 10, 10], "rotation": 270, "texture": "#4"},
+				"south": {"uv": [6, 6, 10, 10], "texture": "#5"},
+				"west": {"uv": [6, 0, 10, 10], "rotation": 90, "texture": "#4"},
+				"up": {"uv": [6, 0, 10, 10], "rotation": 180, "texture": "#4"},
+				"down": {"uv": [6, 0, 10, 10], "texture": "#4"}
 			}
 		}
 	],

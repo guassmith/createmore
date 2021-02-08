@@ -11,7 +11,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.state.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -22,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<DynamoTile> {
 
@@ -48,8 +48,9 @@ public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<Dy
         this.setDefaultState(this.getDefaultState().with(FRONT, false).with(BACK, false));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, @NotNull IBlockReader worldIn, @NotNull BlockPos pos, @NotNull ISelectionContext context) {
         if(!state.get(FRONT) && !state.get(BACK)) {
             return NONE_JOINED_SHAPE.get(state.get(AXIS));
         } else if(state.get(FRONT) && !state.get(BACK)) {
@@ -76,8 +77,10 @@ public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<Dy
         super.fillStateContainer(builder.add(FRONT, BACK));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos,
+                                @NotNull Block blockIn, @NotNull BlockPos fromPos, boolean isMoving) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
 
         if(!worldIn.isRemote()) {
@@ -85,12 +88,15 @@ public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<Dy
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        return checkForJoin(stateIn, facing, facingState, currentPos, facingPos);
+    public @NotNull BlockState updatePostPlacement(@NotNull BlockState stateIn, @NotNull Direction facing,
+                                                   @NotNull BlockState facingState, @NotNull IWorld worldIn,
+                                                   @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
+        return checkForJoin(stateIn, facing, facingState);
     }
 
-    private BlockState checkForJoin(BlockState ourState, Direction dir, BlockState state, BlockPos pos, BlockPos fromPos) {
+    private BlockState checkForJoin(BlockState ourState, Direction dir, BlockState state) {
         if(dir.getAxis() != ourState.get(AXIS)) { return ourState; }
 
         if(! (state.getBlock() instanceof Dynamo) || (state.get(AXIS) != ourState.get(AXIS))) {
@@ -108,25 +114,5 @@ public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<Dy
 
     public Class<DynamoTile> getTileEntityClass() {
         return DynamoTile.class;
-    }
-
-    public enum JoinedAt implements IStringSerializable {
-        NONE("none"),
-        FRONT("front"),
-        BACK("back"),
-        BOTH("both");
-
-        private final String name;
-
-        JoinedAt(String name) {
-            this.name = name;
-        }
-
-        public String toString() {
-            return this.name;
-        }
-        public String getString() {
-            return this.name;
-        }
     }
 }

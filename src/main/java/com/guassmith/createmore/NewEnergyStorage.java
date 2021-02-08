@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 
 public class NewEnergyStorage extends EnergyStorage {
 
-    private static final Logger LOGGER = LogManager.getLogger();
     private final LazyOptional<IEnergyStorage> optional = LazyOptional.of(() -> this);
 
     public NewEnergyStorage(int capacity) {

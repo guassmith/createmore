@@ -15,6 +15,8 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -22,14 +24,17 @@ import java.util.List;
 
 public class ElectricMotorTile extends GeneratingKineticTileEntity {
 
-    private final NewEnergyStorage energy = new NewEnergyStorage(Config.ELECTRIC_MOTOR.energyCapacity.get());
-    private boolean powered = false;
+    private static final Logger LOGGER = LogManager.getLogger();
+    protected final NewEnergyStorage energy = new NewEnergyStorage(Config.ELECTRIC_MOTOR.energyCapacity.get());
+    protected boolean powered = false;
+    protected boolean enabled = true;
     protected ScrollValueBehaviour generatedSpeed;
 
     public ElectricMotorTile(TileEntityType<? extends ElectricMotorTile> tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
 
+    @Override
     public void addBehaviours(List<TileEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
         Integer max = Config.ELECTRIC_MOTOR.maxSpeed.get();
@@ -42,7 +47,7 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
         this.generatedSpeed.value = Config.ELECTRIC_MOTOR.defaultSpeed.get();
         this.generatedSpeed.scrollableValue = Config.ELECTRIC_MOTOR.defaultSpeed.get();
         this.generatedSpeed.withUnit(i -> Lang.translate("generic.unit.rpm"));
-        this.generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
+        this.generatedSpeed.withCallback(i -> updateGeneratedRotation());
         this.generatedSpeed.withStepFunction(CreativeMotorTileEntity::step);
         behaviours.add(this.generatedSpeed);
     }
@@ -59,6 +64,7 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
     @Override
     public void write(CompoundNBT compound, boolean clientPacket) {
         compound.putBoolean("powered", powered);
+        compound.putBoolean("enabled", enabled);
         compound.putInt("energyAmount", energy.getEnergyStored());
         super.write(compound, clientPacket);
     }
@@ -66,6 +72,7 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
     @Override
     protected void fromTag(BlockState state, CompoundNBT compound, boolean clientPacket) {
         powered = compound.getBoolean("powered");
+        enabled = compound.getBoolean("enabled");
         energy.setEnergy(compound.getInt("energyAmount"));
         super.fromTag(state, compound, clientPacket);
     }
@@ -74,7 +81,7 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
     public void tick() {
         super.tick();
         assert world != null;
-        if(!world.isRemote()) {
+        if(!world.isRemote() && enabled) {
             boolean activeBefore = powered;
             powered = false;
             int powerUsed = Math.abs(generatedSpeed.getValue()) * Config.ELECTRIC_MOTOR.energyUsage.get();
@@ -92,12 +99,18 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
 
     @Override
     public float getGeneratedSpeed() {
-        return powered ? convertToDirection((float)this.generatedSpeed.getValue(), this.getBlockState().get(ElectricMotor.FACING)) : 0.0F;
+        //LOGGER.info("get generated speed");
+        if(powered && enabled) {
+            //LOGGER.info("powered and enabled are true");
+            return convertToDirection(generatedSpeed.getValue(), getBlockState().get(ElectricMotor.FACING));
+        }
+        //LOGGER.info("powered and enabled are FALSE");
+        return 0;
     }
 
     @Override
-    public void remove() {
+    protected void invalidateCaps() {
         energy.invalidateOptional();
-        super.remove();
+        super.invalidateCaps();
     }
 }
