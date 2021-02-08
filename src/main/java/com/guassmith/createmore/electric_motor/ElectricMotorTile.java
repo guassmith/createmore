@@ -15,8 +15,6 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -24,7 +22,6 @@ import java.util.List;
 
 public class ElectricMotorTile extends GeneratingKineticTileEntity {
 
-    private static final Logger LOGGER = LogManager.getLogger();
     protected final NewEnergyStorage energy = new NewEnergyStorage(Config.ELECTRIC_MOTOR.energyCapacity.get());
     protected boolean powered = false;
     protected boolean enabled = true;
@@ -50,6 +47,13 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
         this.generatedSpeed.withCallback(i -> updateGeneratedRotation());
         this.generatedSpeed.withStepFunction(CreativeMotorTileEntity::step);
         behaviours.add(this.generatedSpeed);
+    }
+
+    public void setEnabled(boolean e) {
+        enabled = e;
+        if(this.world != null && !this.world.isRemote()) {
+            updateGeneratedRotation();
+        }
     }
 
     @Nonnull
@@ -82,29 +86,30 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
         super.tick();
         assert world != null;
         if(!world.isRemote() && enabled) {
-            boolean activeBefore = powered;
+            boolean poweredBefore = powered;
             powered = false;
             int powerUsed = Math.abs(generatedSpeed.getValue()) * Config.ELECTRIC_MOTOR.energyUsage.get();
+            powerUsed = poweredBefore ? powerUsed : powerUsed*4;
             if (powerUsed > 0 && energy.getEnergyStored() >= powerUsed) {
                 powered = true;
-                energy.extractEnergy(powerUsed, false);
-                markDirty();
+                if(!isOverStressed()) {
+                    energy.extractEnergy(powerUsed, false);
+                    markDirty();
+                }
             }
 
-            if (activeBefore != powered) {
+            if (poweredBefore != powered) {
                 updateGeneratedRotation();
+                markDirty();
             }
         }
     }
 
     @Override
     public float getGeneratedSpeed() {
-        //LOGGER.info("get generated speed");
         if(powered && enabled) {
-            //LOGGER.info("powered and enabled are true");
             return convertToDirection(generatedSpeed.getValue(), getBlockState().get(ElectricMotor.FACING));
         }
-        //LOGGER.info("powered and enabled are FALSE");
         return 0;
     }
 

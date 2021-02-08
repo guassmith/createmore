@@ -34,7 +34,7 @@ public class SmartMotorPeripheral implements IPeripheral {
      * @param speed The desired speed of the motor.
      * @return The new speed of the motor.
      */
-    @LuaFunction
+    @LuaFunction( mainThread = true )
     public final int setSpeed(int speed)
     {
         return tile.setGeneratedSpeed(speed);

@@ -5,6 +5,7 @@ import com.guassmith.createmore.electric_motor.ElectricMotor;
 import com.guassmith.createmore.smart_motor.SmartMotor;
 import com.simibubi.create.AllTags.AllBlockTags;
 import com.simibubi.create.foundation.config.AllConfigs;
+import com.simibubi.create.foundation.config.CStress;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.repack.registrate.util.entry.BlockEntry;
@@ -43,17 +44,19 @@ public class ModBlocks {
     public static void register() {}
 
     public static void registerStress() {
-        AllConfigs.SERVER.kinetics.stressValues.getCapacities().put(
+        CStress stressValues = AllConfigs.SERVER.kinetics.stressValues;
+
+        stressValues.getCapacities().put(
                 ModBlocks.ELECTRIC_MOTOR.get().getRegistryName(),
                 Config.ELECTRIC_MOTOR.stressCapacity
         );
 
-        AllConfigs.SERVER.kinetics.stressValues.getImpacts().put(
+        stressValues.getImpacts().put(
                 ModBlocks.DYNAMO.get().getRegistryName(),
                 Config.DYNAMO.stressImpact
         );
 
-        AllConfigs.SERVER.kinetics.stressValues.getCapacities().put(
+        stressValues.getCapacities().put(
                 ModBlocks.SMART_MOTOR.get().getRegistryName(),
                 Config.ELECTRIC_MOTOR.stressCapacity
         );

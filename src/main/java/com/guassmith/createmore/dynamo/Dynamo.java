@@ -21,7 +21,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 
 public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<DynamoTile> {
 
@@ -48,9 +47,9 @@ public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<Dy
         this.setDefaultState(this.getDefaultState().with(FRONT, false).with(BACK, false));
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "NullableProblems"})
     @Override
-    public @NotNull VoxelShape getShape(BlockState state, @NotNull IBlockReader worldIn, @NotNull BlockPos pos, @NotNull ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         if(!state.get(FRONT) && !state.get(BACK)) {
             return NONE_JOINED_SHAPE.get(state.get(AXIS));
         } else if(state.get(FRONT) && !state.get(BACK)) {
@@ -77,10 +76,10 @@ public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<Dy
         super.fillStateContainer(builder.add(FRONT, BACK));
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "NullableProblems"})
     @Override
-    public void neighborChanged(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos,
-                                @NotNull Block blockIn, @NotNull BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn,
+                                BlockPos fromPos, boolean isMoving) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
 
         if(!worldIn.isRemote()) {
@@ -88,11 +87,10 @@ public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<Dy
         }
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "NullableProblems"})
     @Override
-    public @NotNull BlockState updatePostPlacement(@NotNull BlockState stateIn, @NotNull Direction facing,
-                                                   @NotNull BlockState facingState, @NotNull IWorld worldIn,
-                                                   @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
+                                          BlockPos currentPos, BlockPos facingPos) {
         return checkForJoin(stateIn, facing, facingState);
     }
 
