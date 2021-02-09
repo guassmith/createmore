@@ -10,6 +10,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 
+//todo add tooltips to items
+//todo add recipes
+//todo add goggle tooltips for power, out of power and disabled
+//todo add data generation
+
 @Mod(CreateMore.MODID)
 public class CreateMore
 {

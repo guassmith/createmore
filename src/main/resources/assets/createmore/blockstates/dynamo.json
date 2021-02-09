@@ -5,44 +5,43 @@
       "x": 90
     },
     "axis=y,joined_front=true,joined_back=false": {
-      "model": "createmore:block/dynamo/block_joined_1",
-      "x": 270
+      "model": "createmore:block/dynamo/block_front",
+      "x": 90
     },
     "axis=y,joined_front=false,joined_back=true": {
-      "model": "createmore:block/dynamo/block_joined_1",
+      "model": "createmore:block/dynamo/block_back",
       "x": 90
     },
     "axis=y,joined_front=true,joined_back=true": {
-      "model": "createmore:block/dynamo/block_joined_2",
+      "model": "createmore:block/dynamo/block_both",
       "x": 90
     },
     "axis=z,joined_front=false,joined_back=false": {
       "model": "createmore:block/dynamo/block"
     },
     "axis=z,joined_front=true,joined_back=false": {
-      "model": "createmore:block/dynamo/block_joined_1",
-      "y": 180
+      "model": "createmore:block/dynamo/block_front"
     },
     "axis=z,joined_front=false,joined_back=true": {
-      "model": "createmore:block/dynamo/block_joined_1"
+      "model": "createmore:block/dynamo/block_back"
     },
     "axis=z,joined_front=true,joined_back=true": {
-      "model": "createmore:block/dynamo/block_joined_2"
+      "model": "createmore:block/dynamo/block_both"
     },
     "axis=x,joined_front=false,joined_back=false": {
       "model": "createmore:block/dynamo/block",
       "y": 90
     },
     "axis=x,joined_front=true,joined_back=false": {
-      "model": "createmore:block/dynamo/block_joined_1",
+      "model": "createmore:block/dynamo/block_back",
       "y": 90
     },
     "axis=x,joined_front=false,joined_back=true": {
-      "model": "createmore:block/dynamo/block_joined_1",
-      "y": 270
+      "model": "createmore:block/dynamo/block_front",
+      "y": 90
     },
     "axis=x,joined_front=true,joined_back=true": {
-      "model": "createmore:block/dynamo/block_joined_2",
+      "model": "createmore:block/dynamo/block_both",
       "y": 90
     }
   }
