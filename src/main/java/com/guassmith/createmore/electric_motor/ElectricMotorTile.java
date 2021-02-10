@@ -3,6 +3,7 @@ package com.guassmith.createmore.electric_motor;
 import com.guassmith.createmore.Config;
 import com.guassmith.createmore.CreateMore;
 import com.guassmith.createmore.NewEnergyStorage;
+import com.guassmith.createmore.smart_motor.SmartMotorTile;
 import com.simibubi.create.content.contraptions.base.GeneratingKineticTileEntity;
 import com.simibubi.create.content.contraptions.components.motor.CreativeMotorTileEntity;
 import com.simibubi.create.foundation.item.TooltipHelper;
@@ -98,18 +99,25 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
             );
 
             ITextComponent hint = new TranslationTextComponent(CreateMore.MODID+".gui.no_power.hint");
-
             List<ITextComponent> cutString = TooltipHelper.cutTextComponent(hint, TextFormatting.GRAY, TextFormatting.WHITE);
-
             for (ITextComponent iTextComponent : cutString) {
                 tooltip.add(componentSpacing.copyRaw().append(iTextComponent));
             }
             return true;
         }
-        //if (enabled) {
+        if (!(this instanceof SmartMotorTile)) {
+            tooltip.add(componentSpacing.copyRaw().append(
+                    new TranslationTextComponent(CreateMore.MODID+".gui.turned_off"))
+                    .mergeStyle(TextFormatting.GOLD)
+            );
 
-        //    return true;
-        //}
+            ITextComponent hint = new TranslationTextComponent(CreateMore.MODID+".gui.turned_off.hint");
+            List<ITextComponent> cutString = TooltipHelper.cutTextComponent(hint, TextFormatting.GRAY, TextFormatting.WHITE);
+            for (ITextComponent iTextComponent : cutString) {
+                tooltip.add(componentSpacing.copyRaw().append(iTextComponent));
+            }
+            return true;
+        }
         return superResult;
     }
 

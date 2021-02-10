@@ -6,7 +6,7 @@ import net.minecraftforge.common.ForgeConfigSpec.*;
 public class Config {
 
     private static final Builder BUILDER;
-    public static ForgeConfigSpec commonConf;
+    public static final ForgeConfigSpec commonConf;
 
     static {
         BUILDER = new Builder();

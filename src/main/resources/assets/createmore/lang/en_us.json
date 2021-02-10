@@ -19,6 +19,10 @@
 
   "createmore.gui.no_power": "No Power",
   "createmore.gui.no_power.hint": "This device is not receiving enough _Forge Energy_ to power itself. Try supplying it with more energy, or reduce it's speed.",
+
+  "createmore.gui.turned_off": "Turned Off",
+  "createmore.gui.turned_off.hint": "This device is currently turned off through _Redstone_.",
+
   "createmore.gui.energy_stored": "Energy Stored:",
   "createmore.gui.energy_used": "Energy Used:",
   "createmore.gui.energy_produced": "Energy Produced:",

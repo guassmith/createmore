@@ -5,9 +5,6 @@ import com.guassmith.createmore.CreateMore;
 import com.guassmith.createmore.ModBlocks;
 import com.guassmith.createmore.NewEnergyStorage;
 import com.simibubi.create.content.contraptions.base.KineticTileEntity;
-import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
-import com.simibubi.create.foundation.config.AllConfigs;
-import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
@@ -32,12 +29,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static net.minecraft.util.text.TextFormatting.GOLD;
-import static net.minecraft.util.text.TextFormatting.GRAY;
-
 public class DynamoTile extends KineticTileEntity {
 
-    private final NewEnergyStorage energy = new NewEnergyStorage(1000000, 0, 1000000);
+    private final NewEnergyStorage energy =
+            new NewEnergyStorage(Config.DYNAMO.energyCapacity.get(), 0, Config.DYNAMO.energyOutput.get());
     private Set<Direction> connectedSides;
 
     public DynamoTile(TileEntityType<?> typeIn) {

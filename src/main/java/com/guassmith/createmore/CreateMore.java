@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
-import org.lwjgl.system.CallbackI;
 
 //todo add tooltips to items
 //todo add recipes
@@ -60,10 +59,10 @@ public class CreateMore
     public static ITextComponent siFormatter(int value, String key) {
         String txtValue = Integer.toString(value);
         String prefix = "regular";
-        if(value > 1000000) {
+        if(value >= 1000000) {
             prefix = "mega";
             txtValue = String.format("%.2f", (float)value/1000000);
-        } else if(value > 1000){
+        } else if(value >= 1000){
             prefix = "kilo";
             txtValue = String.format("%.1f", (float)value/1000);
         }

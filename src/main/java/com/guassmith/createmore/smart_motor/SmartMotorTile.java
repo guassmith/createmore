@@ -13,7 +13,7 @@ import static dan200.computercraft.shared.Capabilities.CAPABILITY_PERIPHERAL;
 
 public class SmartMotorTile extends ElectricMotorTile {
 
-    SmartMotorPeripheral peripheralCap = new SmartMotorPeripheral(this);
+    final SmartMotorPeripheral peripheralCap = new SmartMotorPeripheral(this);
 
     public SmartMotorTile(TileEntityType<? extends ElectricMotorTile> tileEntityTypeIn) {
         super(tileEntityTypeIn);

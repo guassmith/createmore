@@ -2,8 +2,6 @@ package com.guassmith.createmore.smart_motor;
 
 import com.guassmith.createmore.ModTiles;
 import com.guassmith.createmore.electric_motor.ElectricMotor;
-import com.guassmith.createmore.electric_motor.ElectricMotorTile;
-import com.simibubi.create.foundation.block.ITE;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;

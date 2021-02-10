@@ -19,16 +19,12 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<DynamoTile> {
 
     //sides joined to another dynamo
     protected static final BooleanProperty FRONT = BooleanProperty.create("joined_front");
     protected static final BooleanProperty BACK = BooleanProperty.create("joined_back");
-
-    private static final Logger LOGGER = LogManager.getLogger();
 
     public static final VoxelShaper NONE_JOINED_SHAPE = ShapeBuilder //none joined
             .shape(1,1,1,15,15,15)
@@ -46,8 +42,6 @@ public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<Dy
         super(properties);
         this.setDefaultState(this.getDefaultState().with(FRONT, false).with(BACK, false));
     }
-
-
 
     @SuppressWarnings({"deprecation", "NullableProblems"})
     @Override
@@ -104,10 +98,8 @@ public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<Dy
                 ourState.with(FRONT,false) : ourState.with(BACK, false);
         }
         if(dir.getAxisDirection() == Direction.AxisDirection.POSITIVE) {
-            LOGGER.info("FRONT connects");
             return ourState.with(FRONT, true);
         } else {
-            LOGGER.info("BACK connects");
             return ourState.with(BACK, true);
         }
     }
