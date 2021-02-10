@@ -4,6 +4,7 @@ import com.guassmith.createmore.dynamo.Dynamo;
 import com.guassmith.createmore.electric_motor.ElectricMotor;
 import com.guassmith.createmore.smart_motor.SmartMotor;
 import com.simibubi.create.AllTags.AllBlockTags;
+import com.simibubi.create.content.AllSections;
 import com.simibubi.create.foundation.config.AllConfigs;
 import com.simibubi.create.foundation.config.CStress;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -16,6 +17,10 @@ import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 public class ModBlocks {
 
     private static final CreateRegistrate REGISTRATE = CreateMore.registrate().itemGroup(() -> ItemGroup.REDSTONE);
+
+    static {
+        REGISTRATE.startSection(AllSections.KINETICS);
+    }
 
     public static final BlockEntry<ElectricMotor> ELECTRIC_MOTOR =
         REGISTRATE.block("electric_motor", ElectricMotor::new)

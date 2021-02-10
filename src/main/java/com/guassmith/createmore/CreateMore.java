@@ -4,11 +4,15 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.repack.registrate.util.NonNullLazyValue;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
+import org.lwjgl.system.CallbackI;
 
 //todo add tooltips to items
 //todo add recipes
@@ -51,5 +55,21 @@ public class CreateMore
             }
         }
         return null;
+    }
+
+    public static ITextComponent siFormatter(int value, String key) {
+        String txtValue = Integer.toString(value);
+        String prefix = "regular";
+        if(value > 1000000) {
+            prefix = "mega";
+            txtValue = String.format("%.2f", (float)value/1000000);
+        } else if(value > 1000){
+            prefix = "kilo";
+            txtValue = String.format("%.1f", (float)value/1000);
+        }
+
+        return new StringTextComponent(txtValue+" ")
+            .append(new TranslationTextComponent(MODID+"."+key+"."+prefix))
+            .append(new StringTextComponent(" "));
     }
 }

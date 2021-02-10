@@ -1,9 +1,11 @@
 package com.guassmith.createmore.electric_motor;
 
 import com.guassmith.createmore.Config;
+import com.guassmith.createmore.CreateMore;
 import com.guassmith.createmore.NewEnergyStorage;
 import com.simibubi.create.content.contraptions.base.GeneratingKineticTileEntity;
 import com.simibubi.create.content.contraptions.components.motor.CreativeMotorTileEntity;
+import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
 import com.simibubi.create.foundation.tileEntity.behaviour.CenteredSideValueBoxTransform;
 import com.simibubi.create.foundation.tileEntity.behaviour.scrollvalue.ScrollValueBehaviour;
@@ -12,6 +14,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -79,6 +85,60 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
         enabled = compound.getBoolean("enabled");
         energy.setEnergy(compound.getInt("energyAmount"));
         super.fromTag(state, compound, clientPacket);
+    }
+
+    @Override
+    public boolean addToTooltip(List<ITextComponent> tooltip, boolean isPlayerSneaking) {
+        boolean superResult = super.addToTooltip(tooltip, isPlayerSneaking);
+        if (!isPlayerSneaking) { return superResult; }
+        if (!powered) {
+            tooltip.add(componentSpacing.copyRaw().append(
+                new TranslationTextComponent(CreateMore.MODID+".gui.no_power"))
+                .mergeStyle(TextFormatting.GOLD)
+            );
+
+            ITextComponent hint = new TranslationTextComponent(CreateMore.MODID+".gui.no_power.hint");
+
+            List<ITextComponent> cutString = TooltipHelper.cutTextComponent(hint, TextFormatting.GRAY, TextFormatting.WHITE);
+
+            for (ITextComponent iTextComponent : cutString) {
+                tooltip.add(componentSpacing.copyRaw().append(iTextComponent));
+            }
+            return true;
+        }
+        //if (enabled) {
+
+        //    return true;
+        //}
+        return superResult;
+    }
+
+    @Override
+    public boolean addToGoggleTooltip(List<ITextComponent> tooltip, boolean isPlayerSneaking) {
+        boolean superResult = super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+        if (isPlayerSneaking) {
+            tooltip.add(componentSpacing.copyRaw().append(
+                new TranslationTextComponent(CreateMore.MODID+".gui.energy_stored")
+                .mergeStyle(TextFormatting.GRAY))
+            );
+            tooltip.add(componentSpacing.copyRaw().append(
+                new StringTextComponent(" ").append(CreateMore.siFormatter(energy.getEnergyStored(),"gui.fe_units"))
+                .mergeStyle(TextFormatting.AQUA))
+            );
+            tooltip.add(componentSpacing.copyRaw().append(
+                new TranslationTextComponent(CreateMore.MODID+".gui.energy_used")
+                .mergeStyle(TextFormatting.GRAY))
+            );
+            tooltip.add(componentSpacing.copyRaw().append(
+                new StringTextComponent(" ").append(CreateMore.siFormatter(
+                Math.abs(generatedSpeed.getValue()) * Config.ELECTRIC_MOTOR.energyUsage.get(), "gui.fe_tick"))
+                .mergeStyle(TextFormatting.AQUA)
+                .append(Lang.translate("gui.goggles.at_current_speed")
+                .mergeStyle(TextFormatting.DARK_GRAY)))
+            );
+            return true;
+        }
+        return superResult;
     }
 
     @Override

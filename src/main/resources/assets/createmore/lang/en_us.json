@@ -1,5 +1,33 @@
 {
   "block.createmore.electric_motor": "Electric Motor",
   "block.createmore.dynamo": "Dynamo",
-  "block.createmore.smart_motor": "Smart Motor"
+  "block.createmore.smart_motor": "Smart Motor",
+
+  "block.createmore.electric_motor.tooltip": "ELECTRIC MOTOR",
+  "block.createmore.electric_motor.tooltip.summary": "Converts _Forge Energy_ into a configurable amount of _Rotational_ _Force_.",
+  "block.createmore.electric_motor.tooltip.condition1": "When Powered by Redstone",
+  "block.createmore.electric_motor.tooltip.behaviour1": "Turns off.",
+
+  "block.createmore.dynamo.tooltip": "DYNAMO",
+  "block.createmore.dynamo.tooltip.summary": "Converts _Rotational Force_ into _Forge Energy_.",
+
+  "block.createmore.smart_motor.tooltip": "SMART MOTOR",
+  "block.createmore.smart_motor.tooltip.summary": "A more advanced version of the _Electric Motor_.",
+  "block.createmore.smart_motor.tooltip.condition1": "When connected to a CC Computer",
+  "block.createmore.smart_motor.tooltip.behaviour1": "Can be remotely controlled through a connected computer.",
+
+
+  "createmore.gui.no_power": "No Power",
+  "createmore.gui.no_power.hint": "This device is not receiving enough _Forge Energy_ to power itself. Try supplying it with more energy, or reduce it's speed.",
+  "createmore.gui.energy_stored": "Energy Stored:",
+  "createmore.gui.energy_used": "Energy Used:",
+  "createmore.gui.energy_produced": "Energy Produced:",
+
+  "createmore.gui.fe_units.regular": "FE",
+  "createmore.gui.fe_units.kilo": "kFE",
+  "createmore.gui.fe_units.mega": "MFE",
+
+  "createmore.gui.fe_tick.regular": "FE/t",
+  "createmore.gui.fe_tick.kilo": "kFE/t",
+  "createmore.gui.fe_tick.mega": "MFE/t"
 }

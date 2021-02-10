@@ -47,6 +47,8 @@ public class Dynamo extends AbstractEncasedShaftBlock implements IRotate, ITE<Dy
         this.setDefaultState(this.getDefaultState().with(FRONT, false).with(BACK, false));
     }
 
+
+
     @SuppressWarnings({"deprecation", "NullableProblems"})
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
