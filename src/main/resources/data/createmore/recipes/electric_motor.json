@@ -1,0 +1,32 @@
+{
+  "type": "create:mechanical_crafting",
+  "pattern": [
+    " BIS",
+    "ICEB",
+    "BGCI",
+    " IB "
+  ],
+  "key": {
+    "B": {
+      "tag": "forge:plates/brass"
+    },
+    "I": {
+      "tag": "forge:plates/iron"
+    },
+    "E": {
+      "item": "create:electron_tube"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "S": {
+      "item": "create:shaft"
+    },
+    "G": {
+      "tag": "forge:plates/gold"
+    }
+  },
+  "result": {
+    "item": "createmore:electric_motor"
+  }
+}

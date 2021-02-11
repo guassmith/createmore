@@ -10,14 +10,12 @@ import com.simibubi.create.foundation.config.CStress;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.repack.registrate.util.entry.BlockEntry;
-import net.minecraft.item.ItemGroup;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
 public class ModBlocks {
 
-    private static final CreateRegistrate REGISTRATE = CreateMore.registrate().itemGroup(() -> ItemGroup.REDSTONE);
-
+    private static final CreateRegistrate REGISTRATE = CreateMore.registrate().itemGroup(() -> CreateMore.ITEM_GROUP);
     static {
         REGISTRATE.startSection(AllSections.KINETICS);
     }

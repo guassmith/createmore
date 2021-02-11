@@ -2,20 +2,21 @@ package com.guassmith.createmore;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.repack.registrate.util.NonNullLazyValue;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 
-//todo add tooltips to items
-//todo add recipes
-//todo add goggle tooltips for power, out of power and disabled
 //todo add data generation
 
 @Mod(CreateMore.MODID)
@@ -24,15 +25,16 @@ public class CreateMore
     public static final String MODID = "createmore";
     //private static final Logger LOGGER = LogManager.getLogger();
 
-
     private static final NonNullLazyValue<CreateRegistrate> registrate = CreateRegistrate.lazy(MODID);
+    public static final ItemGroup ITEM_GROUP = new ItemGroup(MODID+".main") {
+        @OnlyIn(Dist.CLIENT)
+        public ItemStack createIcon() { return new ItemStack(ModBlocks.ELECTRIC_MOTOR.get()); }
+    };
 
     public CreateMore() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonConf);
-
-        //MinecraftForge.EVENT_BUS.register(this);
 
         ModBlocks.register();
         ModTiles.register();

@@ -16,6 +16,7 @@
   "block.createmore.smart_motor.tooltip.condition1": "When connected to a CC Computer",
   "block.createmore.smart_motor.tooltip.behaviour1": "Can be remotely controlled through a connected computer.",
 
+  "itemGroup.createmore.main": "Create More",
 
   "createmore.gui.no_power": "No Power",
   "createmore.gui.no_power.hint": "This device is not receiving enough _Forge Energy_ to power itself. Try supplying it with more energy, or reduce it's speed.",

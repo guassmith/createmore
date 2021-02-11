@@ -105,7 +105,7 @@ public class ElectricMotorTile extends GeneratingKineticTileEntity {
             }
             return true;
         }
-        if (!(this instanceof SmartMotorTile)) {
+        if (!enabled && !(this instanceof SmartMotorTile)) {
             tooltip.add(componentSpacing.copyRaw().append(
                     new TranslationTextComponent(CreateMore.MODID+".gui.turned_off"))
                     .mergeStyle(TextFormatting.GOLD)
