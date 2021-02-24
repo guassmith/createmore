@@ -31,7 +31,7 @@ A mod to add some extra features to Create, as well as intergrate it with other 
     modId="create"
     mandatory=true
     versionRange="[mc1.16.3_v0.3e,)"
-    ordering="NONE"
+    ordering="BEFORE"
     side="BOTH"
 
 [[dependencies.examplemod]]

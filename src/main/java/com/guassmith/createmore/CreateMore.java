@@ -1,10 +1,15 @@
 package com.guassmith.createmore;
 
+import com.guassmith.createmore.mixin.MixinAllBlockPartials;
+import com.guassmith.createmore.steam_engine.BlockPartialsAccessor;
+import com.simibubi.create.AllBlockPartials;
+import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.repack.registrate.util.NonNullLazyValue;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -24,6 +29,7 @@ public class CreateMore
 {
     public static final String MODID = "createmore";
     //private static final Logger LOGGER = LogManager.getLogger();
+    public static final AllBlockPartials PISTON = ((BlockPartialsAccessor)AllBlockPartials.FLYWHEEL).getPartial("steam_engine/piston");
 
     private static final NonNullLazyValue<CreateRegistrate> registrate = CreateRegistrate.lazy(MODID);
     public static final ItemGroup ITEM_GROUP = new ItemGroup(MODID+".main") {
@@ -73,4 +79,11 @@ public class CreateMore
             .append(new TranslationTextComponent(MODID+"."+key+"."+prefix))
             .append(new StringTextComponent(" "));
     }
+
+    /*public static AllBlockPartials getSteamEnginePiston() {
+        AllBlockPartials partials = new AllBlockPartials();
+        partials.modelLocation = new ResourceLocation(Create.ID, "block/" + path);
+        all.add(partials);
+        return partials;
+    }*/
 }

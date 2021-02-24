@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.guassmith.createmore.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "createmore.refmap.json",
+  "mixins": [
+    "MixinAllBlockPartials",
+    "MixinFlywheelTileEntity"
+  ],
+  "minVersion": "0.8"
+}

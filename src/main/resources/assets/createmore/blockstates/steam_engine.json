@@ -1,0 +1,83 @@
+{
+  "variants": {
+    "facing=north,part=ne": {
+      "model": "createmore:block/steam_engine/ne"
+    },
+    "facing=south,part=ne": {
+      "model": "createmore:block/steam_engine/ne",
+      "y": 180
+    },
+    "facing=west,part=ne": {
+      "model": "createmore:block/steam_engine/ne",
+      "y": 270
+    },
+    "facing=east,part=ne": {
+      "model": "createmore:block/steam_engine/ne",
+      "y": 90
+    },
+
+    "facing=north,part=nw": {
+      "model": "createmore:block/steam_engine/nw"
+    },
+    "facing=south,part=nw": {
+      "model": "createmore:block/steam_engine/nw",
+      "y": 180
+    },
+    "facing=west,part=nw": {
+      "model": "createmore:block/steam_engine/nw",
+      "y": 270
+    },
+    "facing=east,part=nw": {
+      "model": "createmore:block/steam_engine/nw",
+      "y": 90
+    },
+
+    "facing=north,part=se": {
+      "model": "createmore:block/steam_engine/se"
+    },
+    "facing=south,part=se": {
+      "model": "createmore:block/steam_engine/se",
+      "y": 180
+    },
+    "facing=west,part=se": {
+      "model": "createmore:block/steam_engine/se",
+      "y": 270
+    },
+    "facing=east,part=se": {
+      "model": "createmore:block/steam_engine/se",
+      "y": 90
+    },
+
+    "facing=north,part=sw": {
+      "model": "createmore:block/steam_engine/sw"
+    },
+    "facing=south,part=sw": {
+      "model": "createmore:block/steam_engine/sw",
+      "y": 180
+    },
+    "facing=west,part=sw": {
+      "model": "createmore:block/steam_engine/sw",
+      "y": 270
+    },
+    "facing=east,part=sw": {
+      "model": "createmore:block/steam_engine/sw",
+      "y": 90
+    },
+
+    "facing=north,part=chimney": {
+      "model": "createmore:block/steam_engine/chimney"
+    },
+    "facing=south,part=chimney": {
+      "model": "createmore:block/steam_engine/chimney",
+      "y": 180
+    },
+    "facing=west,part=chimney": {
+      "model": "createmore:block/steam_engine/chimney",
+      "y": 270
+    },
+    "facing=east,part=chimney": {
+      "model": "createmore:block/steam_engine/chimney",
+      "y": 90
+    }
+  }
+}

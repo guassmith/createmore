@@ -3,6 +3,7 @@ package com.guassmith.createmore;
 import com.guassmith.createmore.dynamo.Dynamo;
 import com.guassmith.createmore.electric_motor.ElectricMotor;
 import com.guassmith.createmore.smart_motor.SmartMotor;
+import com.guassmith.createmore.steam_engine.SteamEngine;
 import com.simibubi.create.AllTags.AllBlockTags;
 import com.simibubi.create.content.AllSections;
 import com.simibubi.create.foundation.config.AllConfigs;
@@ -10,6 +11,7 @@ import com.simibubi.create.foundation.config.CStress;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.repack.registrate.util.entry.BlockEntry;
+import net.minecraft.client.renderer.RenderType;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
@@ -44,6 +46,15 @@ public class ModBlocks {
             .transform(customItemModel())
             .register();
 
+    public static final BlockEntry<SteamEngine> STEAM_ENGINE =
+        REGISTRATE.block("steam_engine", SteamEngine::new)
+            .initialProperties(SharedProperties::softMetal)
+            .tag(AllBlockTags.SAFE_NBT.tag)
+            .addLayer(() -> RenderType::getCutoutMipped)
+            .item()
+            .transform(customItemModel())
+            .register();
+
     public static void register() {}
 
     public static void registerStress() {
@@ -61,6 +72,11 @@ public class ModBlocks {
 
         stressValues.getCapacities().put(
                 ModBlocks.SMART_MOTOR.get().getRegistryName(),
+                Config.ELECTRIC_MOTOR.stressCapacity
+        );
+
+        stressValues.getCapacities().put(
+                ModBlocks.STEAM_ENGINE.get().getRegistryName(),
                 Config.ELECTRIC_MOTOR.stressCapacity
         );
     }

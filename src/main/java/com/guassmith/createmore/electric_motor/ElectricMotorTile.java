@@ -29,7 +29,8 @@ import java.util.List;
 
 public class ElectricMotorTile extends GeneratingKineticTileEntity {
 
-    protected final NewEnergyStorage energy = new NewEnergyStorage(Config.ELECTRIC_MOTOR.energyCapacity.get());
+    protected final NewEnergyStorage energy =
+            new NewEnergyStorage(Config.ELECTRIC_MOTOR.energyCapacity.get(), Config.ELECTRIC_MOTOR.energyCapacity.get(), 0);
     protected boolean powered = false;
     protected boolean enabled = true;
     protected ScrollValueBehaviour generatedSpeed;
