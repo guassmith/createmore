@@ -2,6 +2,7 @@
   "block.createmore.electric_motor": "Electric Motor",
   "block.createmore.dynamo": "Dynamo",
   "block.createmore.smart_motor": "Smart Motor",
+  "block.createmore.steam_engine": "Steam Engine",
 
   "block.createmore.electric_motor.tooltip": "ELECTRIC MOTOR",
   "block.createmore.electric_motor.tooltip.summary": "Converts _Forge Energy_ into a configurable amount of _Rotational_ _Force_.",

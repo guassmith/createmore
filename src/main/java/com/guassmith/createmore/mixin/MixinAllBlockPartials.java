@@ -1,7 +1,6 @@
 package com.guassmith.createmore.mixin;
 
 import com.guassmith.createmore.steam_engine.BlockPartialsAccessor;
-import com.mojang.datafixers.TypeRewriteRule;
 import com.simibubi.create.AllBlockPartials;
 import net.minecraft.util.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,13 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AllBlockPartials.class)
 public abstract class MixinAllBlockPartials implements BlockPartialsAccessor {
-
-    /*private static AllBlockPartials get(String path) {
-        AllBlockPartials partials = new AllBlockPartials();
-        partials.modelLocation = new ResourceLocation("createmore", "block/" + path);
-        all.add(partials);
-        return partials;
-    }*/
 
     @Shadow private ResourceLocation modelLocation;
     @Shadow private static AllBlockPartials get(String path) {

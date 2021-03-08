@@ -8,6 +8,7 @@ import com.simibubi.create.content.contraptions.components.flywheel.FlywheelTile
 import com.simibubi.create.content.contraptions.components.flywheel.engine.EngineBlock;
 import com.simibubi.create.content.contraptions.components.flywheel.engine.EngineTileEntity;
 import com.simibubi.create.foundation.config.AllConfigs;
+import com.simibubi.create.foundation.gui.widgets.InterpolatedChasingValue;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
@@ -29,11 +30,19 @@ import static net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXE
 import static net.minecraft.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class SteamEngineTile extends EngineTileEntity {
+    //todo update nearby pipe when placed
+    //todo add smoke effects
+    //todo add description and goggle tooltips
     Logger LOGGER = LogManager.getLogger();
+
+    private static final int CAPACITY = 8000;
+    private static final int STEAM_USAGE = 50;
+    private static final int SPEED = 50;
 
     NewFluidStorage fluid;
     private boolean working;
     private FlywheelTileEntity cachedClientWheel;
+    public InterpolatedChasingValue fluidLevel;
 
     public SteamEngineTile(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -43,7 +52,7 @@ public class SteamEngineTile extends EngineTileEntity {
     public void initialize() {
         if(getBlockState().get(SteamEngine.PART) == SteamEngine.SteamEnginePart.NE) {
             if (fluid == null) {
-                fluid = new NewFluidStorage(FluidAttributes.BUCKET_VOLUME * 2);
+                fluid = new NewFluidStorage(8000);
             }
             updateEngine();
             markDirty();
@@ -72,7 +81,6 @@ public class SteamEngineTile extends EngineTileEntity {
 
     @Override
     protected void write(CompoundNBT compound, boolean clientPacket) {
-        SteamEngine.SteamEnginePart p = getBlockState().get(SteamEngine.PART);
         if(getBlockState().get(SteamEngine.PART) != SteamEngine.SteamEnginePart.NE) { return; }
         compound.putBoolean("working", working);
         if(fluid != null) { fluid.writeToNBT(compound); }
@@ -83,8 +91,27 @@ public class SteamEngineTile extends EngineTileEntity {
     protected void fromTag(BlockState state, CompoundNBT compound, boolean clientPacket) {
         if(state.get(SteamEngine.PART) != SteamEngine.SteamEnginePart.NE) { return; }
         working = compound.getBoolean("working");
-        if(fluid != null) { fluid.readFromNBT(compound); }
+        if(fluid == null) {
+            fluid = new NewFluidStorage(8000);
+        }
+        fluid.readFromNBT(compound);
+
+        float fillAmount = (float)fluid.getFluidAmount() / (float)CAPACITY;
+        if (fluidLevel == null) { fluidLevel = new InterpolatedChasingValue().start(fillAmount).withSpeed(1 / 2f); }
+        LOGGER.info("fillAmount " + fillAmount);
+
+        if(clientPacket) {
+            if (fluidLevel == null) { fluidLevel = new InterpolatedChasingValue().start(fillAmount); }
+            fluidLevel.target(fillAmount);
+        }
+
         super.fromTag(state, compound, clientPacket);
+    }
+
+    @Override
+    public void tick() {
+        if (fluidLevel != null) { fluidLevel.tick(); }
+        super.tick();
     }
 
     @Override
@@ -93,21 +120,24 @@ public class SteamEngineTile extends EngineTileEntity {
         if(getBlockState().get(SteamEngine.PART) != SteamEngine.SteamEnginePart.NE || getWorld().isRemote()) { return; }
         boolean workingBefore = working;
         working = false;
-        if(fluid.getFluidAmount() >= 50) {
+        //LOGGER.info("fluid " + fluid.getFluid().getFluid().getRegistryName());
+        //LOGGER.info(!getWorld().isRemote + " amount " + fluid.getFluidAmount());
+        if(fluid.getFluidAmount() >= STEAM_USAGE) {
             working = true;
-            fluid.drain(50, EXECUTE);
+            fluid.drain(STEAM_USAGE, EXECUTE);
         }
         if(workingBefore != working) {
             markDirty();
         }
-        refreshWheelSpeed();
+        updateEngine();
+        sendData();
 
         super.lazyTick();
     }
 
     private void updateEngine() {
         appliedCapacity = working ? (float) AllConfigs.SERVER.kinetics.stressValues.getCapacityOf(ModBlocks.STEAM_ENGINE.get()) : 0;
-        appliedSpeed = working ? 16 : 0;
+        appliedSpeed = working ? SPEED : 0;
         refreshWheelSpeed();
     }
 
@@ -117,7 +147,7 @@ public class SteamEngineTile extends EngineTileEntity {
         Direction engineFacing = getBlockState().get(HORIZONTAL_FACING);
         BlockPos wheelPos = getPos().offset(engineFacing, 2);
         BlockState wheelState = getWorld().getBlockState(wheelPos);
-        if(!wheelState.hasProperty(FlywheelBlock.HORIZONTAL_FACING)) { return null; }
+        if(!(wheelState.getBlock() instanceof FlywheelBlock)) { return null; }
         Direction.Axis wheelAxis = wheelState.get(FlywheelBlock.HORIZONTAL_FACING).getAxis();
         if (wheelAxis != engineFacing.rotateY().getAxis()) { return null; }
         if (!FlywheelBlock.isConnected(wheelState) || FlywheelBlock.getConnection(wheelState) == engineFacing.getOpposite()) {

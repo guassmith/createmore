@@ -84,7 +84,7 @@ public class SteamEngine extends EngineBlock {
         if(state.get(PART) != SteamEnginePart.NE) { return true; }
         boolean valid = true;
         for(SteamEnginePart part : SteamEnginePart.values()) {
-            if(!worldIn.isAirBlock(pos.add(part.fromNE().rotate(dirToRot(state.get(HORIZONTAL_FACING)))))) {
+            if(!worldIn.getBlockState(pos.add(part.fromNE().rotate(dirToRot(state.get(HORIZONTAL_FACING))))).getMaterial().isReplaceable()) {
                 valid = false;
             }
         }
